@@ -123,7 +123,9 @@
             // popupContent.onload = function () {
             //     layer.openPopup();
             // };
-            layer.bindPopup('<iframe width="600" height="400" src="//plotly.com/~mdong127/63.embed"></iframe>', {maxWidth:"auto", maxHeight:"auto"});
+            let dummy_var = 63;
+            let popup_iframe = `<iframe width="600" height="400" src="//plotly.com/~mdong127/${dummy_var}.embed"></iframe>`
+            layer.bindPopup(popup_iframe, {maxWidth:"auto", maxHeight:"auto"});
             
             // var div = L.DomUtil.create('div', 'waste-preds');
             // layer.bindPopup(div);
