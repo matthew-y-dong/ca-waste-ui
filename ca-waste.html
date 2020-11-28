@@ -11,6 +11,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
@@ -36,7 +37,9 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_e05f5e02fcb846a19e4a594ab5b1cacf" ></div>
+            <div class="folium-map" id="map_e05f5e02fcb846a19e4a594ab5b1cacf" >
+                <div id="plotly-div"></div>
+            </div>
         
 </body>
 <script>    
@@ -52,10 +55,6 @@
                 }
             );
 
-            
-
-        
-    
             var tile_layer_67cd5e689c64497c872cf13bc9ef83b9 = L.tileLayer(
                 "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
                 {"attribution": "\u0026copy; \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"http://cartodb.com/attributions\"\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca href =\"http://cartodb.com/attributions\"\u003eattributions\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
@@ -85,11 +84,56 @@
                     return {"color": "black", "fillColor": "#8856a7", "fillOpacity": 0.6, "opacity": 1, "weight": 1};
             }
         }
+
+        function filter_waste_data_by_county(county){
+            
+            data.filter(function(row){
+                return row['County'] == county;
+            })
+        }
+
+        function generate_waste_visualization(county){
+            console.log(county)
+            var trace1 = {
+            x: [1, 2, 3, 4],
+            y: [10, 15, 13, 17],
+            mode: 'markers',
+            name: 'Scatter'
+            };
+
+            var trace2 = {
+            x: [2, 3, 4, 5],
+            y: [16, 5, 11, 9],
+            mode: 'lines',
+            name: 'Lines'
+            };
+
+            var data = [ trace1, trace2 ];
+            var layout = {
+            title:'Adding Names to Line and Scatter Plot'
+            };
+
+            Plotly.newPlot('plotly-div', data, layout);
+        }
+
         function geo_json_760318e77cc74add9a6d436d6711fa25_onEachFeature(feature, layer) {
             layer.bindTooltip(feature.id);
+
+            // popupContent = '<iframe width="600" height="400" src="//plotly.com/~mdong127/63.embed"></iframe>'
+            // popupContent.onload = function () {
+            //     layer.openPopup();
+            // };
+            layer.bindPopup('<iframe width="600" height="400" src="//plotly.com/~mdong127/63.embed"></iframe>', {maxWidth:"auto", maxHeight:"auto"});
+            
+            // var div = L.DomUtil.create('div', 'waste-preds');
+            // layer.bindPopup(div);
+            // layer.bindPopup(generate_waste_visualization(feature.id));
+
             layer.on({
                 click: function(e) {
-                    map_e05f5e02fcb846a19e4a594ab5b1cacf.fitBounds(e.target.getBounds());
+                    // map_e05f5e02fcb846a19e4a594ab5b1cacf.fitBounds(e.target.getBounds());
+                    // console.log("reet");
+                    // generate_waste_visualization(feature.id);
                 }
             });
         };
