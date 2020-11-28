@@ -117,12 +117,13 @@
         }
 
         function geo_json_760318e77cc74add9a6d436d6711fa25_onEachFeature(feature, layer) {
-            layer.bindTooltip(feature.id);
+            
 
             // popupContent = '<iframe width="600" height="400" src="//plotly.com/~mdong127/63.embed"></iframe>'
             // popupContent.onload = function () {
             //     layer.openPopup();
             // };
+            layer.bindTooltip(feature.id);
             let county_plotly_url_map = {"Alameda": "6", "Alpine": "8", "Amador": "10", "Butte": "12", "Calaveras": "14", "Colusa": "16", "Contra Costa": "18", "Del Norte": "20", "El Dorado": "22", "Fresno": "24", "Glenn": "26", "Humboldt": "28", "Imperial": "30", "Inyo": "32", "Kern": "34", "Kings": "36", "Lake": "38", "Lassen": "40", "Los Angeles": "42", "Madera": "44", "Marin": "46", "Mariposa": "48", "Mendocino": "50", "Merced": "52", "Modoc": "54", "Mono": "56", "Monterey": "58", "Napa": "60", "Nevada": "62", "Orange": "64", "Placer": "66", "Plumas": "68", "Riverside": "70", "Sacramento": "72", "San Benito": "74", "San Bernardino": "76", "San Diego": "78", "San Francisco": "80", "San Joaquin": "82", "San Luis Obispo": "84", "San Mateo": "86", "Santa Barbara": "88", "Santa Clara": "90", "Santa Cruz": "92", "Shasta": "94", "Sierra": "96", "Siskiyou": "98", "Solano": "100", "Sonoma": "102", "Stanislaus": "104", "Tehama": "106", "Trinity": "108", "Tulare": "110", "Tuolumne": "112", "Ventura": "114", "Yolo": "116", "Yuba": "118"};
             let plotly_id = county_plotly_url_map[feature.id];
             let popup_iframe = `<iframe width="600" height="400" src="//plotly.com/~matthew-y-dong/${plotly_id}.embed"></iframe>`
